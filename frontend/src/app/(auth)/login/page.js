@@ -10,7 +10,7 @@ import {
     Checkbox,
     Button,
     Typography,
-  } from "@/lib/MaterialTailwind";
+} from '@/lib/MaterialTailwind'
 
 import Link from 'next/link'
 import { useAuth } from '@/hooks/auth'
@@ -42,7 +42,15 @@ const Login = () => {
 
     const submitForm = async event => {
         event.preventDefault()
-
+        const sample = {
+            email,
+            password,
+            remember: shouldRemember,
+            setErrors,
+            setStatus,
+        }
+        console.log('sample:', sample)
+        
         login({
             email,
             password,
@@ -121,14 +129,25 @@ const Login = () => {
                     <Button className="ml-3">Login</Button>
                 </div>
             </form> */}
-            <Card color="transparent" shadow={false} className="m-1 max-w-screen-lg">
-                <Typography variant="h4" color="blue-gray" className="mr-1 ml-1">
+            <Card
+                color="transparent"
+                shadow={false}
+                className="m-1 max-w-screen-lg">
+                <Typography
+                    variant="h4"
+                    color="blue-gray"
+                    className="mr-1 ml-1">
                     Log in
                 </Typography>
                 <AuthSessionStatus className="mb-4" status={status} />
-                <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 m-1" onSubmit={submitForm}>
+                <form
+                    className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 m-1"
+                    onSubmit={submitForm}>
                     <div className="mb-1 flex flex-col gap-6">
-                        <Typography variant="h6" color="blue-gray" className="-mb-5">
+                        <Typography
+                            variant="h6"
+                            color="blue-gray"
+                            className="-mb-5">
                             Your Email
                         </Typography>
                         <Input
@@ -140,10 +159,15 @@ const Login = () => {
                             placeholder="name@mail.com"
                             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                             labelProps={{
-                            className: "before:content-none after:content-none",
+                                className:
+                                    'before:content-none after:content-none',
                             }}
+                            autoFocus
                         />
-                        <Typography variant="h6" color="blue-gray" className="-mb-5">
+                        <Typography
+                            variant="h6"
+                            color="blue-gray"
+                            className="-mb-5">
                             Password
                         </Typography>
                         <Input
@@ -155,20 +179,31 @@ const Login = () => {
                             placeholder="********"
                             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                             labelProps={{
-                            className: "before:content-none after:content-none",
+                                className:
+                                    'before:content-none after:content-none',
                             }}
+                            autoComplete="current-password"
                         />
                         <div className="-m-3">
-                            <Checkbox label="Remember Me"/>
+                            <Checkbox
+                                label="Remember Me"
+                                onChange={event =>
+                                    setShouldRemember(event.target.checked)
+                                }
+                            />
                         </div>
-                        
-
+                        {/* <div class="relative">
+                            <input type="text" required class=" h-10 w-full border-b-2 border-gray-300 focus:outline-none focus:border-indigo-500" />
+                            <label class="absolute left-0 -top-3.5 text-gray-600 text-xs peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-indigo-500 transition-all duration-200" for="username">Username</label>
+                        </div> */}
                     </div>
 
-                    <Button className="mt-6" fullWidth>
-                    log in
+                    <Button className="mt-6" fullWidth onClick={submitForm}>
+                        log in
                     </Button>
-                    <Typography color="gray" className="mt-4 text-center font-normal">
+                    <Typography
+                        color="gray"
+                        className="mt-4 text-center font-normal">
                         <Link
                             href="/forgot-password"
                             className="underline text-sm text-gray-600 hover:text-gray-900">
