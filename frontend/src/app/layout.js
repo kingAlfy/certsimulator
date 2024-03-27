@@ -9,7 +9,7 @@ const RootLayout = ({ children }) => {
     return (
         <ThemeProvider>
             <html lang="es">
-                <body className="antialiased">{children}</body>
+                <body className="antialiased w-screen h-screen">{children}</body>
             </html>
         </ThemeProvider>
     )

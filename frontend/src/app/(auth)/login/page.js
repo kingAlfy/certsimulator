@@ -121,10 +121,11 @@ const Login = () => {
                     <Button className="ml-3">Login</Button>
                 </div>
             </form> */}
-            <Card color="transparent" shadow={false} className="m-1">
+            <Card color="transparent" shadow={false} className="m-1 max-w-screen-lg">
                 <Typography variant="h4" color="blue-gray" className="mr-1 ml-1">
                     Log in
                 </Typography>
+                <AuthSessionStatus className="mb-4" status={status} />
                 <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 m-1" onSubmit={submitForm}>
                     <div className="mb-1 flex flex-col gap-6">
                         <Typography variant="h6" color="blue-gray" className="-mb-5">
@@ -134,6 +135,7 @@ const Login = () => {
                             id="email"
                             type="email"
                             value={email}
+                            onChange={event => setEmail(event.target.value)}
                             size="lg"
                             placeholder="name@mail.com"
                             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -145,7 +147,10 @@ const Login = () => {
                             Password
                         </Typography>
                         <Input
+                            id="password"
                             type="password"
+                            value={password}
+                            onChange={event => setPassword(event.target.value)}
                             size="lg"
                             placeholder="********"
                             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -153,6 +158,11 @@ const Login = () => {
                             className: "before:content-none after:content-none",
                             }}
                         />
+                        <div className="-m-3">
+                            <Checkbox label="Remember Me"/>
+                        </div>
+                        
+
                     </div>
 
                     <Button className="mt-6" fullWidth>
