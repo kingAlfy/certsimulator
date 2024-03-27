@@ -1,9 +1,17 @@
 'use client'
 
-import Button from '@/components/Button'
+/*import Button from '@/components/Button'
 import Input from '@/components/Input'
 import InputError from '@/components/InputError'
-import Label from '@/components/Label'
+import Label from '@/components/Label' */
+import {
+    Card,
+    Input,
+    Checkbox,
+    Button,
+    Typography,
+  } from "@/lib/MaterialTailwind";
+
 import Link from 'next/link'
 import { useAuth } from '@/hooks/auth'
 import { useEffect, useState } from 'react'
@@ -46,9 +54,8 @@ const Login = () => {
 
     return (
         <>
-            <AuthSessionStatus className="mb-4" status={status} />
+            {/* <AuthSessionStatus className="mb-4" status={status} />
             <form onSubmit={submitForm}>
-                {/* Email Address */}
                 <div>
                     <Label htmlFor="email">Email</Label>
 
@@ -65,7 +72,6 @@ const Login = () => {
                     <InputError messages={errors.email} className="mt-2" />
                 </div>
 
-                {/* Password */}
                 <div className="mt-4">
                     <Label htmlFor="password">Password</Label>
 
@@ -85,7 +91,6 @@ const Login = () => {
                     />
                 </div>
 
-                {/* Remember Me */}
                 <div className="block mt-4">
                     <label
                         htmlFor="remember_me"
@@ -115,7 +120,53 @@ const Login = () => {
 
                     <Button className="ml-3">Login</Button>
                 </div>
-            </form>
+            </form> */}
+            <Card color="transparent" shadow={false} className="m-1">
+                <Typography variant="h4" color="blue-gray" className="mr-1 ml-1">
+                    Log in
+                </Typography>
+                <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 m-1" onSubmit={submitForm}>
+                    <div className="mb-1 flex flex-col gap-6">
+                        <Typography variant="h6" color="blue-gray" className="-mb-5">
+                            Your Email
+                        </Typography>
+                        <Input
+                            id="email"
+                            type="email"
+                            value={email}
+                            size="lg"
+                            placeholder="name@mail.com"
+                            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                            labelProps={{
+                            className: "before:content-none after:content-none",
+                            }}
+                        />
+                        <Typography variant="h6" color="blue-gray" className="-mb-5">
+                            Password
+                        </Typography>
+                        <Input
+                            type="password"
+                            size="lg"
+                            placeholder="********"
+                            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                            labelProps={{
+                            className: "before:content-none after:content-none",
+                            }}
+                        />
+                    </div>
+
+                    <Button className="mt-6" fullWidth>
+                    log in
+                    </Button>
+                    <Typography color="gray" className="mt-4 text-center font-normal">
+                        <Link
+                            href="/forgot-password"
+                            className="underline text-sm text-gray-600 hover:text-gray-900">
+                            Forgot your password?
+                        </Link>
+                    </Typography>
+                </form>
+            </Card>
         </>
     )
 }

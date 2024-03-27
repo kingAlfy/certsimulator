@@ -1,13 +1,17 @@
 import '@/app/global.css'
+import { ThemeProvider } from '@/lib/MaterialTailwind'
+
 
 export const metadata = {
-    title: 'Laravel',
+    title: 'CERTSIMULATOR',
 }
 const RootLayout = ({ children }) => {
     return (
-        <html lang="en">
-            <body className="antialiased">{children}</body>
-        </html>
+        <ThemeProvider>
+            <html lang="es">
+                <body className="antialiased">{children}</body>
+            </html>
+        </ThemeProvider>
     )
 }
 
