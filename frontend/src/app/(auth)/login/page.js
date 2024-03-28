@@ -1,6 +1,6 @@
 'use client'
 
-/*import Button from '@/components/Button'
+/* import Button from '@/components/Button'
 import Input from '@/components/Input'
 import InputError from '@/components/InputError'
 import Label from '@/components/Label' */
@@ -14,9 +14,8 @@ import {
 
 import Link from 'next/link'
 import { useAuth } from '@/hooks/auth'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import AuthSessionStatus from '@/app/(auth)/AuthSessionStatus'
 
 const Login = () => {
     const router = useRouter()
@@ -30,15 +29,6 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [shouldRemember, setShouldRemember] = useState(false)
     const [errors, setErrors] = useState([])
-    const [status, setStatus] = useState(null)
-
-    useEffect(() => {
-        if (router.reset?.length > 0 && errors.length === 0) {
-            setStatus(atob(router.reset))
-        } else {
-            setStatus(null)
-        }
-    })
 
     const submitForm = async event => {
         event.preventDefault()
@@ -47,23 +37,21 @@ const Login = () => {
             password,
             remember: shouldRemember,
             setErrors,
-            setStatus,
         }
         console.log('sample:', sample)
-        
+
         login({
             email,
             password,
             remember: shouldRemember,
             setErrors,
-            setStatus,
         })
+        console.log(errors);
     }
 
     return (
         <>
-            {/* <AuthSessionStatus className="mb-4" status={status} />
-            <form onSubmit={submitForm}>
+            {/* <form onSubmit={submitForm}>
                 <div>
                     <Label htmlFor="email">Email</Label>
 
@@ -139,7 +127,13 @@ const Login = () => {
                     className="mr-1 ml-1">
                     Log in
                 </Typography>
-                <AuthSessionStatus className="mb-4" status={status} />
+                { /* TODO: try with errors.message */ }
+                {errors.email != null ? (
+                    <Typography
+                        className="-mb-4 mr-1 ml-1 text-normal text-red-600">
+                    {errors.email}
+                    </Typography>
+                ) : null}
                 <form
                     className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 m-1"
                     onSubmit={submitForm}>
@@ -157,7 +151,7 @@ const Login = () => {
                             onChange={event => setEmail(event.target.value)}
                             size="lg"
                             placeholder="name@mail.com"
-                            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                            className="!border-t-blue-gray-200 focus:!border-t-gray-900"
                             labelProps={{
                                 className:
                                     'before:content-none after:content-none',
@@ -177,7 +171,7 @@ const Login = () => {
                             onChange={event => setPassword(event.target.value)}
                             size="lg"
                             placeholder="********"
-                            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                            className="!border-t-blue-gray-200 focus:!border-t-gray-900"
                             labelProps={{
                                 className:
                                     'before:content-none after:content-none',
@@ -190,17 +184,17 @@ const Login = () => {
                                 onChange={event =>
                                     setShouldRemember(event.target.checked)
                                 }
+                                id="remember_me"
+                                type="checkbox"
+                                name="remember"
                             />
                         </div>
-                        {/* <div class="relative">
-                            <input type="text" required class=" h-10 w-full border-b-2 border-gray-300 focus:outline-none focus:border-indigo-500" />
-                            <label class="absolute left-0 -top-3.5 text-gray-600 text-xs peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-indigo-500 transition-all duration-200" for="username">Username</label>
-                        </div> */}
                     </div>
 
-                    <Button className="mt-6" fullWidth onClick={submitForm}>
+                    <Button type="submit" className="mt-6" fullWidth>
                         log in
                     </Button>
+
                     <Typography
                         color="gray"
                         className="mt-4 text-center font-normal">
