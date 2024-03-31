@@ -7,16 +7,17 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     const router = useRouter()
     const params = useParams()
 
-    const { data: user, error, mutate } = useSWR('/api/user', () =>
-        axios
+    const { data: user, error, mutate } = useSWR('/api/user', () => {
+        console.log('realizo petición');
+        return axios
             .get('/api/user')
             .then(res => res.data)
             .catch(error => {
                 if (error.response.status !== 409) throw error
 
                 router.push('/verify-email')
-            }),
-    )
+            })
+    })
 
     const csrf = () => axios.get('/sanctum/csrf-cookie')
 
@@ -42,7 +43,11 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
         axios
             .post('/login', props)
-            .then(() => mutate())
+            .then(() => {
+                console.log('realizo mutate');
+                mutate()
+                console.log('después de mutate');
+            })
             .catch(error => {
                 if (error.response.status !== 422) throw error
                 setErrors(error.response.data.errors)

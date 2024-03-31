@@ -24,7 +24,17 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'code' => ['required', 'string','max:9'],
         ]);
+
+        if (!$request->code == env('VERIFICATION_CODE')){
+            return response()->json([
+                'message' => 'The code not is correct',
+                'errors' => [
+                    'code' => 'The code not is correct'
+                ],
+            ]);
+        }
 
         $user = User::create([
             'name' => $request->name,

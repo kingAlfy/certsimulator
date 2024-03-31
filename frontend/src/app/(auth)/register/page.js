@@ -25,6 +25,7 @@ const Page = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
+    const [code, setCode] = useState('')
     const [errors, setErrors] = useState([])
 
     const submitForm = event => {
@@ -42,6 +43,7 @@ const Page = () => {
             email,
             password,
             password_confirmation: passwordConfirmation,
+            code,
             setErrors,
         })
     }
@@ -154,10 +156,10 @@ const Page = () => {
                                 className:
                                     'before:content-none after:content-none',
                             }}
-                            id="passwordConfirmation"
-                            value={passwordConfirmation}
+                            id="code"
+                            value={code}
                             onChange={event =>
-                                setPasswordConfirmation(event.target.value)
+                                setCode(event.target.value)
                             }
                         />
                     </div>
