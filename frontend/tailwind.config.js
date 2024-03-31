@@ -10,6 +10,9 @@ module.exports = withMT({
 /*             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             }, */
+            colors: {
+                'ex-primary' : '#ced4da'
+            }
         },
     },
     variants: {
