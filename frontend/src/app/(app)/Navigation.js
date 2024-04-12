@@ -1,7 +1,5 @@
 import Link from 'next/link'
 import { useAuth } from '@/hooks/auth'
-import { usePathname } from 'next/navigation'
-import { useState } from 'react'
 import {
     Menu,
     MenuHandler,
@@ -57,7 +55,7 @@ const Navigation = ({ user }) => {
                         </Typography>
                     </MenuItem>
                     <Link href="/edit-profile">
-                        <MenuItem className="flex items-center gap-2">
+                        <MenuItem className="flex items-center gap-2 hover:none">
                             <svg
                                 width="16"
                                 height="16"

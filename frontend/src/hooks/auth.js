@@ -8,7 +8,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     const params = useParams()
 
     const { data: user, error, mutate } = useSWR('/api/user', () => {
-        console.log('realizo petición');
+        console.log('realizo petición')
         return axios
             .get('/api/user')
             .then(res => res.data)
@@ -31,7 +31,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
             .then(() => mutate())
             .catch(error => {
                 if (error.response.status !== 422) throw error
-                console.log(error.response.data);
+                console.log(error.response.data)
                 setErrors(error.response.data.errors)
             })
     }
@@ -44,9 +44,9 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
         axios
             .post('/login', props)
             .then(() => {
-                console.log('realizo mutate');
+                console.log('realizo mutate')
                 mutate()
-                console.log('después de mutate');
+                console.log('después de mutate')
             })
             .catch(error => {
                 if (error.response.status !== 422) throw error
@@ -89,9 +89,11 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     }
 
     const resendEmailVerification = ({ setStatus }) => {
-        axios
-            .post('/email/verification-notification')
-            .then(response => setStatus(response.data.status))
+        axios.post('/email/verification-notification').then(response => {
+            if (setStatus != null){
+                setStatus(response.data.status)
+            }
+        })
     }
 
     const logout = async () => {
