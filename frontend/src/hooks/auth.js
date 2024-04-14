@@ -7,16 +7,17 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     const router = useRouter()
     const params = useParams()
 
-    const { data: user, error, mutate } = useSWR('/api/user', () =>
-        axios
+    const { data: user, error, mutate } = useSWR('/api/user', () => {
+        console.log('realizo petición')
+        return axios
             .get('/api/user')
             .then(res => res.data)
             .catch(error => {
                 if (error.response.status !== 409) throw error
 
                 router.push('/verify-email')
-            }),
-    )
+            })
+    })
 
     const csrf = () => axios.get('/sanctum/csrf-cookie')
 
@@ -30,23 +31,25 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
             .then(() => mutate())
             .catch(error => {
                 if (error.response.status !== 422) throw error
-
+                console.log(error.response.data)
                 setErrors(error.response.data.errors)
             })
     }
 
-    const login = async ({ setErrors, setStatus, ...props }) => {
+    const login = async ({ setErrors, ...props }) => {
         await csrf()
 
         setErrors([])
-        setStatus(null)
 
         axios
             .post('/login', props)
-            .then(() => mutate())
+            .then(() => {
+                console.log('realizo mutate')
+                mutate()
+                console.log('después de mutate')
+            })
             .catch(error => {
                 if (error.response.status !== 422) throw error
-
                 setErrors(error.response.data.errors)
             })
     }
@@ -86,9 +89,13 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     }
 
     const resendEmailVerification = ({ setStatus }) => {
-        axios
-            .post('/email/verification-notification')
-            .then(response => setStatus(response.data.status))
+        if (!user.email_verified_at){
+            axios.post('/email/verification-notification').then(response => {
+                if (setStatus != null){
+                    setStatus(response.data.status)
+                }
+            })
+        }
     }
 
     const logout = async () => {
