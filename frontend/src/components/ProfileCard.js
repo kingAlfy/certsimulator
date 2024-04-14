@@ -8,17 +8,17 @@ import {
     Button,
 } from '@/lib/MaterialTailwind'
 
-const CardProfile = props => {
+const ProfileCard = props => {
     const { title, text, btnText, btnStyle, logicType } = props.card
 
-    const { resendEmailVerification } = useAuth({})
+    const { resendEmailVerification } = useAuth({
+        middleware: 'auth'
+    })
 
     const handleClickEmailVerification = e => {
         // TODO: Add toast to offer feedback
 
-        resendEmailVerification({
-            setStatus: null
-        })
+        resendEmailVerification({})
     }
 
     const handleClickDeleteAccount = (e) => {
@@ -53,4 +53,4 @@ const CardProfile = props => {
     )
 }
 
-export default CardProfile
+export default ProfileCard

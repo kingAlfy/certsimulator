@@ -89,11 +89,13 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     }
 
     const resendEmailVerification = ({ setStatus }) => {
-        axios.post('/email/verification-notification').then(response => {
-            if (setStatus != null){
-                setStatus(response.data.status)
-            }
-        })
+        if (!user.email_verified_at){
+            axios.post('/email/verification-notification').then(response => {
+                if (setStatus != null){
+                    setStatus(response.data.status)
+                }
+            })
+        }
     }
 
     const logout = async () => {
