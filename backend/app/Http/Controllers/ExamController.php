@@ -2,12 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Exam;
+use App\Services\IExamService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ExamController extends Controller
 {
-    public function store (Request $request){
-        $exam = Exam::create($request->all());
+    private IExamService $examService;
+
+    public function __construct(IExamService $examService)
+    {
+        $this->examService = $examService;
+    }
+
+    public function store (Request $request) : JsonResponse
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'file' => ['required']
+        ]);
+
+        $examResponse = $this->examService->createExam($request->all());
+        if (!isset($examResponse)){
+            return response()->json([
+                'message'=> 'Some error has occurred'
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        return response()->json($examResponse, Response::HTTP_CREATED);
     }
 }

@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Repository\ExamRepositoryImpl;
+use App\Repository\IExamRepository;
+use App\Services\ExamServiceImpl;
+use App\Services\IExamService;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\ServiceProvider;
 
@@ -12,7 +16,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(IExamService::class, ExamServiceImpl::class);
+        $this->app->bind(IExamRepository::class, ExamRepositoryImpl::class);
     }
 
     /**
