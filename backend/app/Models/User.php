@@ -50,6 +50,6 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 
     public function exams(): BelongsToMany
     {
-        return $this->belongsToMany(Exam::class)->withTimestamps();
+        return $this->belongsToMany(Exam::class);
     }
 }
