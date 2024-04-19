@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\IExamService;
+use App\Services\IExamUnzipper;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,6 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 class ExamController extends Controller
 {
     private IExamService $examService;
+
+    
 
     public function __construct(IExamService $examService)
     {
@@ -20,7 +23,7 @@ class ExamController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'file' => ['required']
+            'file' => ['required', 'mimes:7z']
         ]);
 
         $examResponse = $this->examService->createExam($request->all());

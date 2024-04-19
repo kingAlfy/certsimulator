@@ -10,3 +10,6 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 Route::post('/testing', [ExamController::class, 'store']);
+/* Route::get('/samplex', function (){
+    return 'samplex';
+}); */
