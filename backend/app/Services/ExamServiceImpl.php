@@ -13,24 +13,33 @@ class ExamServiceImpl implements IExamService
 
     private IExamUnzipper $examUnzipper;
 
-    public function __construct(IExamRepository $examRepository, IExamUnzipper $examUnzipper)
+    private IExamProcessor $processor;
+
+    public function __construct(IExamRepository $examRepository, IExamUnzipper $examUnzipper, IExamProcessor $processor)
     {
         $this->examRepository = $examRepository;
         $this->examUnzipper = $examUnzipper;
+        $this->processor = $processor;
     }
 
-    public function createExam($examRequest) : Exam|null
+    public function createExam($examRequest) : Exam|null|bool
     {
         try {
             // Move file to storage
             $file_url = $examRequest['file']->store('public/exams');
+
             // Change file to file_url
             $examRequest['file'] = Storage::url($file_url);
 
             // Unzip files
-            $this->examUnzipper->unzipExam($file_url);
+            $isSuccesfull = $this->examUnzipper->unzipExam($file_url);
+
+            if (!$isSuccesfull) {
+                return null;
+            }
 
             // Procesar los html
+            $this->processor->processHTML($this->examUnzipper->getPathToExamUnzipped());
 
             // Remove unzipped folder
             /* $pathToExamUnzipped = $this->examUnzipper->getPathToExamUnzipped();

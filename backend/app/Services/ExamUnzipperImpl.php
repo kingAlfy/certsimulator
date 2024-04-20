@@ -33,8 +33,6 @@ class ExamUnzipperImpl implements IExamUnzipper
         return $isSuccesfull;
     }
 
-    
-
     /**
      * Get the value of pathToExamUnzipped
      */
