@@ -25,6 +25,7 @@ class ExamServiceImpl implements IExamService
     public function createExam($examRequest) : Exam|null|bool
     {
         try {
+
             // Move file to storage
             $file_url = $examRequest['file']->store('public/exams');
 
@@ -39,7 +40,11 @@ class ExamServiceImpl implements IExamService
             }
 
             // Procesar los html
-            $this->processor->processHTML($this->examUnzipper->getPathToExamUnzipped());
+            $result = $this->processor->processHTML($this->examUnzipper->getPathToExamUnzipped());
+
+            if (!$result) {
+                return null;
+            }
 
             // Remove unzipped folder
             /* $pathToExamUnzipped = $this->examUnzipper->getPathToExamUnzipped();

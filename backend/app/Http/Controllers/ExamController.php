@@ -21,10 +21,11 @@ class ExamController extends Controller
 
     public function store (Request $request) : JsonResponse
     {
-        /* $request->validate([
+        $request->validate([
             'name' => ['required', 'string', 'max:255'],
-        ]); */
-        
+            'file' => ['required', 'mimes:7z']
+        ]);
+
         $examResponse = $this->examService->createExam($request->all());
         if (!isset($examResponse)){
             return response()->json([
