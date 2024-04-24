@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Exam;
 use App\Repository\IExamRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Storage;
 
 class ExamServiceImpl implements IExamService
@@ -29,7 +30,7 @@ class ExamServiceImpl implements IExamService
      * @param mixed $examRequest
      * @return Exam|null|boolean
      */
-    public function createExam(mixed $examRequest) : Exam|null|bool
+    public function createExam(mixed $examRequest) : Exam|null
     {
         try {
 
@@ -67,18 +68,26 @@ class ExamServiceImpl implements IExamService
         }
     }
 
-    public function updateExam($data)
+    /* public function deleteExam(int $examId) : bool
     {
 
     }
 
-    public function deleteExam(int $data)
+    public function getExam(int $id) : Exam|null
     {
 
-    }
+    } */
 
-    public function getExam(int $id)
+    public function getAllExams(): Collection|null
     {
+
+        $exams = $this->examRepository->getAllExams();
+
+        if (!isset($exams)){
+            return null;
+        }
+
+        return $exams;
 
     }
 }

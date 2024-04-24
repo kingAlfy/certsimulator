@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Services;
+use App\Models\Exam;
+use Illuminate\Database\Eloquent\Collection;
 
 interface IExamService
 {
-    public function createExam(mixed $examRequest);
+    public function createExam(mixed $examRequest) : Exam|null;
 
-    public function updateExam(array $data);
+    /* public function deleteExam(int $examId) : bool;
 
-    public function deleteExam(int $data);
+    public function getExam(int $examId) : Exam|null; */
 
-    public function getExam(int $id);
+    public function getAllExams() : Collection|null;
 }

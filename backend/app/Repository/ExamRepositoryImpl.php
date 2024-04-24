@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Models\Exam;
 use Exception;
+use Illuminate\Database\Eloquent\Collection;
 
 class ExamRepositoryImpl implements IExamRepository
 {
@@ -13,10 +14,20 @@ class ExamRepositoryImpl implements IExamRepository
         return $exam;
     }
 
-    public function getAllExams()
+    public function getAllExams() : Collection|null
     {
-        $exams = Exam::all();
-        return $exams;
+        try {
+
+            $exams = Exam::all();
+
+            return $exams;
+
+        } catch (Exception $e) {
+
+            return null;
+
+        }
+
     }
 
     public function createExam($examDetails) : Exam|null
