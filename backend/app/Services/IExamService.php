@@ -8,9 +8,9 @@ interface IExamService
 {
     public function createExam(mixed $examRequest) : Exam|null;
 
-    /* public function deleteExam(int $examId) : bool;
+    /* public function deleteExam(int $examId) : bool; */
 
-    public function getExam(int $examId) : Exam|null; */
+    public function getExam(int $examId) : Exam|null;
 
     public function getAllExams() : Collection|null;
 }

@@ -45,10 +45,26 @@ class ExamController extends Controller
         if (!isset($exams)){
             return response()->json([
                 'message'=> 'Some error has occurred'
-            ], Response::HTTP_BAD_REQUEST);
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         return response()->json($exams, Response::HTTP_OK);
 
     }
+
+    public function show(int $examId) : JsonResponse
+    {
+
+        $exam = $this->examService->getExam($examId);
+
+        if (!isset($exam)){
+            return response()->json([
+                'message'=> 'Exam not found'
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        return response()->json($exam, Response::HTTP_OK);
+
+    }
+
 }

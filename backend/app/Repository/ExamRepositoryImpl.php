@@ -8,14 +8,27 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ExamRepositoryImpl implements IExamRepository
 {
-    public function getExamById($examId)
+
+    public function getExamById($examId) : Exam|null
     {
-        $exam = Exam::find($examId);
-        return $exam;
+
+        try {
+
+            $exam = Exam::find($examId);
+
+            return $exam;
+
+        } catch (Exception $e) {
+
+            return null;
+
+        }
+
     }
 
     public function getAllExams() : Collection|null
     {
+
         try {
 
             $exams = Exam::all();
@@ -32,6 +45,7 @@ class ExamRepositoryImpl implements IExamRepository
 
     public function createExam($examDetails) : Exam|null
     {
+
         try {
 
             $exam = new Exam();
@@ -47,16 +61,14 @@ class ExamRepositoryImpl implements IExamRepository
         } catch (Exception $e) {
 
             return null;
-        }
-    }
 
-    public function updateExam($examId, $examDetails)
-    {
+        }
 
     }
 
     public function deleteExam($examId)
     {
+
         try {
 
             $exam = Exam::findOrFail($examId);
@@ -68,6 +80,8 @@ class ExamRepositoryImpl implements IExamRepository
         } catch (Exception $e) {
             // TODO: Write error in logger
             return false;
+
         }
+
     }
 }

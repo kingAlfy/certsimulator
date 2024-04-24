@@ -71,12 +71,20 @@ class ExamServiceImpl implements IExamService
     /* public function deleteExam(int $examId) : bool
     {
 
-    }
+    } */
 
-    public function getExam(int $id) : Exam|null
+    public function getExam(int $examId) : Exam|null
     {
 
-    } */
+        $exam = $this->examRepository->getExamById($examId);
+
+        if (!isset($exam)){
+            return null;
+        }
+
+        return $exam;
+
+    }
 
     public function getAllExams(): Collection|null
     {
