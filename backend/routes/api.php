@@ -17,5 +17,3 @@ Route::post('/exams', [ExamController::class, 'store']);
 
 
 Route::get('/exams/{examId}/questions', [QuestionController::class, 'indexByExam']);
-
-
