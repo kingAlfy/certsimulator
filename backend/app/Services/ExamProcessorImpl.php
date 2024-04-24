@@ -45,6 +45,8 @@ class ExamProcessorImpl implements IExamProcessor
 
                 $questionDetails["exam_id"] = $examId;
 
+                // Load headers, topic and number of the question
+
                 $questionNumberAndTopic = $this->loadQuestionNumberAndTopic($xpath, $div);
 
                 if (!isset($questionNumberAndTopic["question_number"]) || !isset($questionNumberAndTopic['topic_id'])){
@@ -55,6 +57,8 @@ class ExamProcessorImpl implements IExamProcessor
 
                 $questionDetails['topic_id'] = $questionNumberAndTopic['topic_id'];
 
+                // Load question
+
                 $question = $this->loadQuestion($xpath, $div, $assetFolderUrl);
 
                 if (!isset($question)){
@@ -62,6 +66,8 @@ class ExamProcessorImpl implements IExamProcessor
                 }
 
                 $questionDetails['question_text'] = $question;
+
+                // Load choices
 
                 $questionChoices = $this->loadQuestionChoices($xpath, $div);
 

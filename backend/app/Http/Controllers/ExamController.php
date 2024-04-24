@@ -35,6 +35,7 @@ class ExamController extends Controller
         }
 
         return response()->json($examResponse, Response::HTTP_CREATED);
+
     }
 
     public function index() : JsonResponse

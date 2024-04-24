@@ -54,6 +54,8 @@ class ExamRepositoryImpl implements IExamRepository
 
             $exam->file_url = $examDetails['file'];
 
+            $exam->path_to_assets = $examDetails['path_to_assets'];
+
             $exam->save();
 
             return $exam;

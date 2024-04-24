@@ -18,7 +18,8 @@ class Exam extends Model
      */
     protected $fillable = [
         'name',
-        'file_url'
+        'file_url',
+        'path_to_assets'
     ];
 
     public function users(): BelongsToMany

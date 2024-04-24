@@ -23,7 +23,7 @@ class QuestionRepositoryImpl implements IQuestionRepository
 
             $question->question_text = $questionDetails["question_text"];
 
-            if (isset($choices)){
+            if (isset($questionDetails["choices"])){
                 $question->choices = $questionDetails["choices"];
             }
 

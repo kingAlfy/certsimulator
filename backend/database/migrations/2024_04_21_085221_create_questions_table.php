@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('topic_id');
             $table->unsignedBigInteger('exam_id');
             $table->text('question_text');
-            $table->string('choices')->nullable();
+            $table->text('choices')->nullable();
             $table->string('solution')->nullable();
             $table->text('solution_description')->nullable();
             $table->timestamps();

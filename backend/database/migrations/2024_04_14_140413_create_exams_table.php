@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('file_url');
+            $table->string('path_to_assets');
             $table->timestamps();
         });
     }

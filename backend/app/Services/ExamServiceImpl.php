@@ -44,11 +44,11 @@ class ExamServiceImpl implements IExamService
             // Unzip files
             $pathToUnzippedExam = $this->examUnzipper->unzipExam($file_url);
 
-            // TODO: Add $pathToUnzipped exam to db
-
             if (!$pathToUnzippedExam) {
                 return null;
             }
+
+            $examRequest['path_to_assets'] = $pathToUnzippedExam;
 
             // Create exam in database
             $exam = $this->examRepository->createExam($examRequest);
