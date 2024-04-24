@@ -22,7 +22,14 @@ class ExamServiceImpl implements IExamService
         $this->processor = $processor;
     }
 
-    public function createExam($examRequest) : Exam|null|bool
+
+    /**
+     * Create exam, if it does fail return null
+     *
+     * @param mixed $examRequest
+     * @return Exam|null|boolean
+     */
+    public function createExam(mixed $examRequest) : Exam|null|bool
     {
         try {
 
@@ -33,26 +40,28 @@ class ExamServiceImpl implements IExamService
             $examRequest['file'] = Storage::url($file_url);
 
             // Unzip files
-            $isSuccesfull = $this->examUnzipper->unzipExam($file_url);
+            $pathToUnzippedExam = $this->examUnzipper->unzipExam($file_url);
 
-            if (!$isSuccesfull) {
+            if (!$pathToUnzippedExam) {
                 return null;
             }
-
-            // Procesar los html
-            $result = $this->processor->processHTML($this->examUnzipper->getPathToExamUnzipped());
-
-            if (!$result) {
-                return null;
-            }
-
-            // Remove unzipped folder
-            /* $pathToExamUnzipped = $this->examUnzipper->getPathToExamUnzipped();
-            Storage::deleteDirectory($pathToExamUnzipped); */
 
             // Create exam in database
             $exam = $this->examRepository->createExam($examRequest);
+
+            // Change file names inside of exam unzipped folder - not working
+
+            // Procesar los html
+            $result = $this->processor->processHTML($pathToUnzippedExam, $exam->id);
+
+            if (!$result) {
+
+                return null;
+
+            }
+
             return $exam;
+
         } catch (\Throwable $th) {
             return null;
         }

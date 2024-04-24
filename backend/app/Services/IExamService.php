@@ -4,7 +4,7 @@ namespace App\Services;
 
 interface IExamService
 {
-    public function createExam(array $data);
+    public function createExam(mixed $examRequest);
 
     public function updateExam(array $data);
 
