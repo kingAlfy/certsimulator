@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Exam;
 use App\Repository\IExamRepository;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Storage;
 
@@ -43,6 +44,8 @@ class ExamServiceImpl implements IExamService
             // Unzip files
             $pathToUnzippedExam = $this->examUnzipper->unzipExam($file_url);
 
+            // TODO: Add $pathToUnzipped exam to db
+
             if (!$pathToUnzippedExam) {
                 return null;
             }
@@ -63,15 +66,21 @@ class ExamServiceImpl implements IExamService
 
             return $exam;
 
-        } catch (\Throwable $th) {
+        } catch (Exception $e) {
+
             return null;
+
         }
     }
 
-    /* public function deleteExam(int $examId) : bool
+    public function deleteExam(int $examId) : bool
     {
 
-    } */
+        $isSuccesfull = $this->examRepository->deleteExam($examId);
+
+        return $isSuccesfull;
+
+    }
 
     public function getExam(int $examId) : Exam|null
     {

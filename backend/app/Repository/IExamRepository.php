@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface IExamRepository
 {
-    public function getExamById($examId) : Exam|null;
+    public function getExamById(int $examId) : Exam|null;
 
     public function getAllExams() : Collection|null;
 
-    public function createExam($examDetails);
+    public function createExam(array $examDetails) : Exam|null;
 
-    public function deleteExam($examId);
+    public function deleteExam(int $examId) : bool;
 
 }

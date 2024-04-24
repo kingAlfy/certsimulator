@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 class ExamRepositoryImpl implements IExamRepository
 {
 
-    public function getExamById($examId) : Exam|null
+    public function getExamById(int $examId) : Exam|null
     {
 
         try {
@@ -43,7 +43,7 @@ class ExamRepositoryImpl implements IExamRepository
 
     }
 
-    public function createExam($examDetails) : Exam|null
+    public function createExam(array $examDetails) : Exam|null
     {
 
         try {
@@ -66,16 +66,16 @@ class ExamRepositoryImpl implements IExamRepository
 
     }
 
-    public function deleteExam($examId)
+    public function deleteExam(int $examId) : bool
     {
 
         try {
 
             $exam = Exam::findOrFail($examId);
 
-            $exam->delete();
+            $isSuccesfull = $exam->delete();
 
-            return true;
+            return $isSuccesfull;
 
         } catch (Exception $e) {
             // TODO: Write error in logger

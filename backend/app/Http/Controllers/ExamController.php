@@ -67,4 +67,19 @@ class ExamController extends Controller
 
     }
 
+    public function destroy(int $examId) : JsonResponse
+    {
+
+        $isSuccesfull = $this->examService->deleteExam($examId);
+
+        if (!isset($isSuccesfull)){
+            return response()->json([
+                'message'=> 'Some error has ocurred'
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        return response()->json($isSuccesfull, Response::HTTP_NO_CONTENT);
+
+    }
+
 }

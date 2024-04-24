@@ -18,7 +18,7 @@ Route::get('/exams/{examId}', [ExamController::class, 'show']);
 
 Route::post('/exams', [ExamController::class, 'store']);
 
-Route::delete('/exams', [ExamController::class, 'destroy']);
+Route::delete('/exams/{examId}', [ExamController::class, 'destroy']);
 
 
 Route::get('/exams/{examId}/questions', [QuestionController::class, 'indexByExam']);
