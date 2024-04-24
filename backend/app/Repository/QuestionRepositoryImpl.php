@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class QuestionRepositoryImpl implements IQuestionRepository
 {
-    public function createQuestion($questionDetails) : Question|null|string
+    public function createQuestion($questionDetails) : Question|null
     {
 
         try {
@@ -37,7 +37,7 @@ class QuestionRepositoryImpl implements IQuestionRepository
 
         } catch (Exception $e) {
 
-            return $e->getMessage();
+            return null;
 
         }
 

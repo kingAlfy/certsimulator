@@ -73,9 +73,25 @@ class ExamController extends Controller
 
         $isSuccesfull = $this->examService->deleteExam($examId);
 
-        if (!isset($isSuccesfull)){
+        if (isset($isSuccesfull['pathToAssets']) && !$isSuccesfull['pathToAssets']){
+
             return response()->json([
-                'message'=> 'Some error has ocurred'
+                'message'=> 'Some error has ocurred when program try delete assets folder'
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+
+        }
+
+        if (isset($isSuccesfull['deleteExams']) && !$isSuccesfull['deleteExams']){
+
+            return response()->json([
+                'message'=> 'Some error has ocurred when program try delete exam in db'
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+
+        }
+
+        if (isset($isSuccesfull['isFound']) && !$isSuccesfull['isFound']){
+            return response()->json([
+                'message'=> 'Exam not found'
             ], Response::HTTP_BAD_REQUEST);
         }
 

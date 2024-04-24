@@ -73,10 +73,32 @@ class ExamServiceImpl implements IExamService
         }
     }
 
-    public function deleteExam(int $examId) : bool
+    public function deleteExam(int $examId) : array
     {
 
-        $isSuccesfull = $this->examRepository->deleteExam($examId);
+        $isSuccesfull = [];
+
+        $exam = $this->examRepository->getExamById($examId);
+
+        if (!isset($exam)){
+
+            $isSuccesfull['isFound'] = false;
+
+            return $isSuccesfull;
+
+        }
+
+        $pathToDelete = $exam->path_to_assets;
+
+        $pathToDelete = explode('/', $pathToDelete);
+
+        $folderName = end($pathToDelete);
+
+        $pathToDelete = 'public/assets/' . $folderName;
+
+        $isSuccesfull['pathToAssets'] = Storage::deleteDirectory($pathToDelete);
+
+        $isSuccesfull['deleteExam'] = $this->examRepository->deleteExam($examId);
 
         return $isSuccesfull;
 

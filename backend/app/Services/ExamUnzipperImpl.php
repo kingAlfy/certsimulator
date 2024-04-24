@@ -49,7 +49,7 @@ class ExamUnzipperImpl implements IExamUnzipper
         // Obtener la ruta completa de la carpeta creada
         $pathToExamUnzipped = Storage::path($createdFolder);
 
-        Storage::deleteDirectory('public/unzipped');
+        $deleteUnzipped = Storage::deleteDirectory('public/unzipped');
 
         return $pathToExamUnzipped;
     }
