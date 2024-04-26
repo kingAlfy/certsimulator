@@ -12,6 +12,10 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 
+
+/**
+ * EXAMS
+ */
 Route::get('/exams', [ExamController::class, 'index']);
 
 Route::get('/exams/{examId}', [ExamController::class, 'show']);
@@ -20,6 +24,10 @@ Route::post('/exams', [ExamController::class, 'store']);
 
 Route::delete('/exams/{examId}', [ExamController::class, 'destroy']);
 
+
+/**
+ * QUESTIONS
+ */
 
 Route::get('/exams/{examId}/questions', [QuestionController::class, 'indexByExam']);
 

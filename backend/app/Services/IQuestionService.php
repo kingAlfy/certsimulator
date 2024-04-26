@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Collection;
 interface IQuestionService
 {
 
-    public function getAllQuestionsByExamId(int $examId) : Collection|Question;
+    public function getAllQuestionsByExam(int $examId) : Collection|Question;
+
+    public function getAllQuestionsByExamAndTopic(int $examId, int $topicID) : Collection|Question|null;
 
 }

@@ -24,7 +24,9 @@ class QuestionRepositoryImpl implements IQuestionRepository
             $question->question_text = $questionDetails["question_text"];
 
             if (isset($questionDetails["choices"])){
+
                 $question->choices = $questionDetails["choices"];
+
             }
 
             $question->solution = $questionDetails["solution"];
@@ -43,8 +45,9 @@ class QuestionRepositoryImpl implements IQuestionRepository
 
     }
 
-    public function getAllQuestionsByExam(int $examId): Collection|Question|null
+    public function getAllQuestionsByExamId(int $examId): Collection|Question|null
     {
+
         try {
 
             $questions = Question::where("exam_id", $examId)->get();
@@ -58,4 +61,23 @@ class QuestionRepositoryImpl implements IQuestionRepository
         }
 
     }
+
+    public function getAllQuestionsByExamIdAndTopicId(int $examId, int $topicId) : Collection|Question|null
+    {
+
+        try {
+
+            $questions = Question::where("exam_id", $examId)->where("topic_id", $topicId)->get();
+
+            return $questions;
+
+        } catch (Exception $e) {
+
+            return null;
+
+        }
+
+    }
+
+
 }

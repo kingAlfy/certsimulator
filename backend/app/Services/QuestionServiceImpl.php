@@ -11,11 +11,31 @@ class QuestionServiceImpl implements IQuestionService
     private IQuestionRepository $questionRepository;
     public function __construct(IQuestionRepository $questionRepository)
     {
+
         $this->questionRepository = $questionRepository;
+
     }
 
-    public function getAllQuestionsByExamId(int $examId): Collection|Question
+    public function getAllQuestionsByExam(int $examId): Collection|Question
     {
-        return $this->questionRepository->getAllQuestionsByExam($examId);
+
+        return $this->questionRepository->getAllQuestionsByExamId($examId);
+
     }
+
+    public function getAllQuestionsByExamAndTopic(int $examId, int $topicId) : Collection|Question|null
+    {
+
+        $questions = $this->questionRepository->getAllQuestionsByExamIdAndTopicId($examId, $topicId);
+
+        if(!isset($questions)){
+
+            return null;
+
+        }
+
+        return $questions;
+
+    }
+
 }
