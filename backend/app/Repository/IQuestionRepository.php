@@ -15,4 +15,6 @@ interface IQuestionRepository
 
     public function getAllQuestionsByExamIdAndTopicId(int $examId, int $topicId) : Collection|Question|null;
 
+    public function getAllQuestionsByExamIdAndTopicIdAndQuestionNumber(int $examId, int $topicId, int $questionNumber) : Question|null;
+
 }

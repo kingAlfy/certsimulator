@@ -31,6 +31,6 @@ Route::delete('/exams/{examId}', [ExamController::class, 'destroy']);
 
 Route::get('/exams/{examId}/questions', [QuestionController::class, 'indexByExam']);
 
-Route::get('/exams/{examId}/{topicId}/questions', [QuestionController::class, 'indexByExamAndTopic']);
+Route::get('/exams/{examId}/topics/{topicId}/questions', [QuestionController::class, 'indexByExamAndTopic']);
 
-Route::get('/exams/{examId}/{topicId}/{questionNumber}', [QuestionController::class, 'indexByExamAndTopic']);
+Route::get('/exams/{examId}/topics/{topicId}/questions/{questionNumber}', [QuestionController::class, 'indexByExamAndTopicAndQuestion']);

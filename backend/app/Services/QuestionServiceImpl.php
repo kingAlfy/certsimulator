@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 class QuestionServiceImpl implements IQuestionService
 {
     private IQuestionRepository $questionRepository;
+
     public function __construct(IQuestionRepository $questionRepository)
     {
 
@@ -27,6 +28,22 @@ class QuestionServiceImpl implements IQuestionService
     {
 
         $questions = $this->questionRepository->getAllQuestionsByExamIdAndTopicId($examId, $topicId);
+
+        if(!isset($questions)){
+
+            return null;
+
+        }
+
+        return $questions;
+
+    }
+
+
+    public function getAllQuestionsByExamAndTopicAndQuestion(int $examId, int $topicId, int $questionNumber) : Question|null
+    {
+
+        $questions = $this->questionRepository->getAllQuestionsByExamIdAndTopicIdAndQuestionNumber($examId, $topicId, $questionNumber);
 
         if(!isset($questions)){
 

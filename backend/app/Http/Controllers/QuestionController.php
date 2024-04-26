@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Services\IQuestionService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class QuestionController extends Controller
@@ -52,6 +51,23 @@ class QuestionController extends Controller
 
             return response()->json([
                 'message' => 'Questions not found'
+            ], Response::HTTP_BAD_REQUEST);
+
+        }
+
+        return response()->json($questions, Response::HTTP_OK);
+
+    }
+
+    public function indexByExamAndTopicAndQuestion(int $examId, int $topicId, int $questionNumber) : JsonResponse
+    {
+
+        $questions = $this->questionService->getAllQuestionsByExamAndTopicAndQuestion($examId, $topicId, $questionNumber);
+
+        if (!isset($questions)){
+
+            return response()->json([
+                'message' => 'Question not found'
             ], Response::HTTP_BAD_REQUEST);
 
         }
