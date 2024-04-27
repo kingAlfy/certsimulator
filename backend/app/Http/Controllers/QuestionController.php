@@ -34,6 +34,24 @@ class QuestionController extends Controller
 
     }
 
+
+    public function indexByExamAndQuestion(int $examId, int $questionId) : JsonResponse
+    {
+
+        $questions = $this->questionService->getQuestionByExamAndQuestion($examId, $questionId);
+
+        if (!isset($questions)){
+
+            return response()->json([
+                'message' => 'Question not found'
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+
+        }
+
+        return response()->json($questions, Response::HTTP_OK);
+
+    }
+
     public function indexByExamAndTopic(int $examId, int $topicId) : JsonResponse
     {
 

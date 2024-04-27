@@ -62,6 +62,23 @@ class QuestionRepositoryImpl implements IQuestionRepository
 
     }
 
+    public function getQuestionByExamIdAndQuestionId(int $examId, int $questionId): Question|null
+    {
+
+        try {
+
+            $questions = Question::where("exam_id", $examId)->where("id", $questionId)->get()[0];
+
+            return $questions;
+
+        } catch (Exception $e) {
+
+            return null;
+
+        }
+
+    }
+
     public function getAllQuestionsByExamIdAndTopicId(int $examId, int $topicId) : Collection|Question|null
     {
 
