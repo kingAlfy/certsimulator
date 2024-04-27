@@ -96,7 +96,7 @@ class QuestionRepositoryImpl implements IQuestionRepository
 
     }
 
-    public function getAllQuestionsByExamIdAndTopicIdAndQuestionNumber(int $examId, int $topicId, int $questionNumber) : Question|null
+    public function getQuestionByExamIdAndTopicIdAndQuestionNumber(int $examId, int $topicId, int $questionNumber) : Question|null
     {
 
         try {

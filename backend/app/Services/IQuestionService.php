@@ -14,6 +14,6 @@ interface IQuestionService
 
     public function getAllQuestionsByExamAndTopic(int $examId, int $topicID) : Collection|Question|null;
 
-    public function getAllQuestionsByExamAndTopicAndQuestion(int $examId, int $topicId, int $questionNumber) : Question|null;
+    public function getQuestionByExamAndTopicAndQuestion(int $examId, int $topicId, int $questionNumber) : Question|null;
 
 }

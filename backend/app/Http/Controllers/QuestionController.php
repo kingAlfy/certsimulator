@@ -80,7 +80,7 @@ class QuestionController extends Controller
     public function indexByExamAndTopicAndQuestion(int $examId, int $topicId, int $questionNumber) : JsonResponse
     {
 
-        $questions = $this->questionService->getAllQuestionsByExamAndTopicAndQuestion($examId, $topicId, $questionNumber);
+        $questions = $this->questionService->getQuestionByExamAndTopicAndQuestion($examId, $topicId, $questionNumber);
 
         if (!isset($questions)){
 

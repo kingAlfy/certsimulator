@@ -54,11 +54,10 @@ class QuestionServiceImpl implements IQuestionService
 
     }
 
-// TODO: Refactor and delete 'All'
-    public function getAllQuestionsByExamAndTopicAndQuestion(int $examId, int $topicId, int $questionNumber) : Question|null
+    public function getQuestionByExamAndTopicAndQuestion(int $examId, int $topicId, int $questionNumber) : Question|null
     {
 
-        $questions = $this->questionRepository->getAllQuestionsByExamIdAndTopicIdAndQuestionNumber($examId, $topicId, $questionNumber);
+        $questions = $this->questionRepository->getQuestionByExamIdAndTopicIdAndQuestionNumber($examId, $topicId, $questionNumber);
 
         if(!isset($questions)){
 
